@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>聊天界面</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background-color: #ededed;
+    font-family: Arial, sans-serif;
+}
+
+/* 聊天窗口 */
+.chat-container {
+    max-width: 500px;
+    height: 100vh;
+    margin: auto;
+    background-color: #ededed;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 顶部 */
+.chat-header {
+    height: 55px;
+    background-color: #f7f7f7;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* 聊天内容区域 */
+.chat-box {
+    flex: 1;
+    padding: 15px;
+    overflow-y: auto;
+}
+
+/* 消息 */
+.message {
+    display: flex;
+    margin-bottom: 20px;
+    align-items: flex-start;
+}
+
+/* 自己的消息 */
+.message.self {
+    justify-content: flex-end;
+}
+
+/* 头像 */
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+    object-fit: cover;
+}
+
+/* 聊天气泡 */
+.bubble {
+    max-width: 70%;
+    padding: 10px 13px;
+    border-radius: 5px;
+    font-size: 15px;
+    line-height: 1.5;
+    margin: 0 10px;
+    word-break: break-word;
+}
+
+/* 对方 */
+.message.other .bubble {
+    background-color: white;
+}
+
+/* 自己 */
+.message.self .bubble {
+    background-color: #95ec69;
+}
+
+/* 底部输入区域 */
+.chat-input {
+    min-height: 65px;
+    padding: 10px;
+    background-color: #f7f7f7;
+    border-top: 1px solid #ddd;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.chat-input input {
+    flex: 1;
+    height: 40px;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 15px;
+    outline: none;
+}
+
+.chat-input button {
+    height: 40px;
+    padding: 0 18px;
+    border: none;
+    border-radius: 5px;
+    background-color: #95ec69;
+    cursor: pointer;
+    font-size: 14px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="chat-container">
+
+    <!-- 顶部名字 -->
+    <div class="chat-header">
+        LIN
+    </div>
+
+    <!-- 聊天记录 -->
+    <div class="chat-box" id="chat-box">
+
+        <!-- 对方的消息 -->
+        <div class="message other">
+            <img class="avatar"
+            src="https://i.imgs.ovh/2026/11/18/29aa38fade2cb9db84d989885203fb4b.jpg" style="margin-right: 12px;">
+            <div>
+                <img src="https://i.imgs.ovh/2026/11/18/2dfec627fbe3bce5067fa1004f837d5a.webp" style="width: 200px; height: auto; border-radius: 5px;">
+            </div>
+        </div>
+        
+        <div class="message other">
+            <img class="avatar"
+            src="https://i.imgs.ovh/2026/11/18/29aa38fade2cb9db84d989885203fb4b.jpg">
+            <div class="bubble">
+                哎 兄弟你觉得这个水晶怎么样
+            </div>
+        </div>
+
+        <!-- 自己的消息 -->
+        <div class="message self">
+            <div class="bubble">
+                好好看 
+            </div>
+            <img class="avatar"
+            src="https://i.imgs.ovh/2026/11/18/08bbf4715b23fefb8e12b42ec780a13e.jpg">
+        </div>
+
+    </div>
+
+    <!-- 输入框 -->
+    <div class="chat-input">
+        <input id="message-input"
+        type="text"
+        placeholder="发送消息...">
+            <button onclick="nextStep()">发送</button>
+    </div>
+
+</div>
+<script>
+
+const myAvatarUrl = "https://i.imgs.ovh/2026/11/18/08bbf4715b23fefb8e12b42ec780a13e.jpg"; 
+const otherAvatarUrl = "https://i.imgs.ovh/2026/11/18/29aa38fade2cb9db84d989885203fb4b.jpg";
+
+ const script = [
+        { sender: "other", text: "哈哈 那必须的" },
+        { sender: "other", text: "你想要吗" },
+        { sender: "self", text: "你能给我我就想要" },
+        { sender: "other", text: "彳亍 你等着吧" },
+        { sender: "self", text: "难不成你有什么绝技" }
+    ];
+
+    
+    let step = 0;
+
+    function nextStep() {
+        
+        if (step >= script.length) {
+            alert("剧本演完啦！");
+            return;
+        }
+
+        const chatBox = document.getElementById("chat-box");
+        const current = script[step]; 
+
+        
+        const newMessage = document.createElement("div");
+        
+        
+        const bubble = document.createElement("div");
+        bubble.className = "bubble";
+        bubble.textContent = current.text;
+
+        
+        const avatar = document.createElement("img");
+        avatar.className = "avatar";
+
+        
+        if (current.sender === "self") {
+            newMessage.className = "message self";
+            avatar.src = myAvatarUrl;
+           
+            newMessage.appendChild(bubble);
+            newMessage.appendChild(avatar);
+        } else {
+            newMessage.className = "message other";
+            avatar.src = otherAvatarUrl;
+           
+            newMessage.appendChild(avatar);
+            newMessage.appendChild(bubble);
+        }
+
+        
+        chatBox.appendChild(newMessage);
+        
+      
+        step++;
+
+        chatBox.scrollTop = chatBox.scrollHeight;
+    }
+</script>
+</body>
+</html>
