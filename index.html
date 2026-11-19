@@ -1,5 +1,21 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>康文昌的在线HTML 教学小工具</title>
+    <style>  
+      body {
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <p>在此处开始写html代码，下面将会实时显示效果。</p>
+  </body>
+</html>
+<!DOCTYPE html>
+<html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -115,6 +131,7 @@ body {
     background-color: #95ec69;
     cursor: pointer;
     font-size: 14px;
+
 }
 </style>
 </head>
@@ -125,7 +142,7 @@ body {
 
     <!-- 顶部名字 -->
     <div class="chat-header">
-        LIN123
+        LIN
     </div>
 
     <!-- 聊天记录 -->
@@ -167,7 +184,21 @@ body {
             <button onclick="nextStep()">发送</button>
     </div>
 
+   <!-- 下一页按钮 -->
+<div id="next-page" style="display: none; text-align: center; padding: 15px;">
+    <button onclick="location.href='page2.html'"
+    style="
+    padding: 10px 30px;
+    background-color: #95ec69;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 15px;
+    ">
+    </button>
+
 </div>
+
 <script>
 
 const myAvatarUrl = "https://i.imgs.ovh/2026/11/18/08bbf4715b23fefb8e12b42ec780a13e.jpg"; 
@@ -178,7 +209,7 @@ const otherAvatarUrl = "https://i.imgs.ovh/2026/11/18/29aa38fade2cb9db84d9898852
         { sender: "other", text: "你想要吗" },
         { sender: "self", text: "你能给我我就想要" },
         { sender: "other", text: "彳亍 你等着吧" },
-        { sender: "self", text: "难不成你有什么绝技" }
+        { sender: "self", text: "不会真给我吧" }
     ];
 
     
@@ -187,7 +218,7 @@ const otherAvatarUrl = "https://i.imgs.ovh/2026/11/18/29aa38fade2cb9db84d9898852
     function nextStep() {
         
         if (step >= script.length) {
-            alert("剧本演完啦！");
+            document.getElementById("next-page").style.display = "block";
             return;
         }
 
@@ -226,6 +257,10 @@ const otherAvatarUrl = "https://i.imgs.ovh/2026/11/18/29aa38fade2cb9db84d9898852
         
       
         step++;
+        if(step >= script.length) {
+        document.getElementById("next-page").style.display = "block";
+        }
+
 
         chatBox.scrollTop = chatBox.scrollHeight;
     }
