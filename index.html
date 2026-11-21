@@ -10,8 +10,8 @@
 }
 body {
     margin: 0;
-    background-color: #1c1c1c;
-    color: #eeeeee;
+    background-color: #f5f5f5;
+    color: #222;
     font-family: Arial, sans-serif;
 }
 /* 整体 */
@@ -19,7 +19,7 @@ body {
     max-width: 500px;
     min-height: 100vh;
     margin: auto;
-    background-color: #1c1c1c;
+    background-color: #fff;
     display: flex;
     flex-direction: column;
 }
@@ -32,7 +32,8 @@ body {
     justify-content: space-between;
     font-size: 17px;
     font-weight: bold;
-    background-color: #111111;
+    background-color: #fff;
+    color: #111;
 }
 .status-icons {
     font-size: 17px;
@@ -45,30 +46,32 @@ body {
     align-items: center;
     justify-content: space-between;
     padding: 0 22px;
-    background-color: #111111;
+    background-color: #fff;
 }
 .top-header span {
     font-size: 27px;
     cursor: pointer;
+    color: #222;
 }
 .top-header h1 {
     font-size: 20px;
     margin: 0;
     font-weight: bold;
+    color: #222;
 }
 /* 搜索框 */
 .search-area {
     padding: 10px 15px 15px;
-    background-color: #111111;
+    background-color: #fff;
 }
 .search-box {
     height: 50px;
-    background-color: #252525;
+    background-color: #f2f2f2;
     border-radius: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #777;
+    color: #999;
     font-size: 17px;
     gap: 10px;
 }
@@ -77,13 +80,14 @@ body {
     border: none;
     outline: none;
     background: transparent;
-    color: white;
+    color: #333;
     font-size: 16px;
 }
 /* 聊天列表 */
 .chat-list {
     flex: 1;
     overflow-y: auto;
+    background-color: #fff;
 }
 /* 每个聊天 */
 .chat-item {
@@ -93,9 +97,10 @@ body {
     align-items: flex-start;
     cursor: pointer;
     position: relative;
+    background-color: #fff;
 }
 .chat-item:active {
-    background-color: #303030;
+    background-color: #f5f5f5;
 }
 /* 头像 */
 .chat-avatar {
@@ -104,237 +109,6 @@ body {
     border-radius: 10px;
     object-fit: cover;
     flex-shrink: 0;
-    background-color: #444;
+    background-color: #eee;
 }
 /* 文字区域 */
-.chat-content {
-    flex: 1;
-    min-width: 0;
-    margin-left: 15px;
-    padding-top: 3px;
-}
-.chat-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 8px;
-}
-.chat-name {
-    font-size: 19px;
-    font-weight: bold;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-}
-.chat-time {
-    font-size: 13px;
-    color: #555;
-    white-space: nowrap;
-}
-.chat-preview {
-    margin-top: 12px;
-    color: #777;
-    font-size: 15px;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-}
-/* 分割线 */
-.chat-item::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 103px;
-    right: 0;
-    height: 1px;
-    background-color: #303030;
-}
-/* 底部导航 */
-.bottom-nav {
-    height: 85px;
-    background-color: #222222;
-    border-top: 1px solid #333;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-}
-.nav-item {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 5px;
-    color: #aaaaaa;
-    font-size: 13px;
-    cursor: pointer;
-}
-.nav-icon {
-    font-size: 25px;
-}
-.nav-item.active {
-    color: #07c160;
-}
-/* 底部手机横条 */
-.home-indicator {
-    height: 22px;
-    background-color: #222222;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.home-indicator div {
-    width: 135px;
-    height: 5px;
-    border-radius: 10px;
-    background-color: white;
-}
-</style>
-</head>
-<body>
-<div class="wechat-container">
-
-<div class="status-bar">
-    <span id="current-time">00:00</span>
-    <span class="status-icons">▮▮▮  Wi-Fi  ▰</span>
-</div>
-
-<div class="top-header">
-    <span>☆</span>
-    <h1>WeChat</h1>
-    <span>⊕</span>
-</div>
-
-<div class="search-area">
-    <div class="search-box">
-        <span>⌕</span>
-        <input type="text" placeholder="搜索">
-    </div>
-</div>
-
-<div class="chat-list">
-    
-   <div class="chat-item" onclick="window.location.assign('./page2.html')">
-        <img class="chat-avatar"
-        src="https://i.imgs.ovh/2026/11/18/29aa38fade2cb9db84d989885203fb4b.jpg">
-        <div class="chat-content">
-            <div class="chat-top">
-                <span class="chat-name">LIN</span>
-                <span class="chat-time">19:49</span>
-            </div>
-            <div class="chat-preview">不会真给我吧</div>
-        </div>
-    </div>
-    <!-- 聊天2 -->
-    <div class="chat-item" onclick="window.location.assign('./page3.html')">
-        <div class="chat-avatar" style="display:flex;align-items:center;justify-content:center;font-size:30px;">
-            🐶
-        </div>
-        <div class="chat-content">
-            <div class="chat-top">
-                <span class="chat-name">妈妈</span>
-                <span class="chat-time">19:37</span>
-            </div>
-            <div class="chat-preview">儿子 钱给你转过去了</div>
-        </div>
-    </div>
-    
-    <div class="chat-item">
-        <div class="chat-avatar" style="display:flex;align-items:center;justify-content:center;font-size:30px;">
-            🌸
-        </div>
-        <div class="chat-content">
-            <div class="chat-top">
-                <span class="chat-name">宝宝2.3</span>
-                <span class="chat-time">19:34</span>
-            </div>
-            <div class="chat-preview">我现在很期待周三</div>
-        </div>
-    </div>
-    <div class="chat-item">
-        <div class="chat-avatar" style="display:flex;align-items:center;justify-content:center;font-size:30px;">
-            🍎
-        </div>
-        <div class="chat-content">
-            <div class="chat-top">
-                <span class="chat-name">老板</span>
-                <span class="chat-time">星期二</span>
-            </div>
-            <div class="chat-preview">收到</div>
-        </div>
-    </div>
-    <div class="chat-item">
-        <div class="chat-avatar" style="display:flex;align-items:center;justify-content:center;font-size:30px;background:#e83e35;">
-            🈲
-        </div>
-        <div class="chat-content">
-            <div class="chat-top">
-                <span class="chat-name">爱抠客</span>
-                <span class="chat-time">7月25日</span>
-            </div>
-            <div class="chat-preview">订单支付成功通知</div>
-        </div>
-    </div>
- 
-    <div class="chat-item">
-        <div class="chat-avatar" style="display:flex;align-items:center;justify-content:center;font-size:30px;background:#07c160;">
-            💬
-        </div>
-        <div class="chat-content">
-            <div class="chat-top">
-                <span class="chat-name">WeRun</span>
-            </div>
-            <div class="chat-preview"></div>
-        </div>
-    </div>
-  
-    <div class="chat-item">
-        <div class="chat-avatar" style="display:flex;align-items:center;justify-content:center;font-size:30px;">
-            👨
-        </div>
-        <div class="chat-content">
-            <div class="chat-top">
-                <span class="chat-name">爸爸</span>
-                <span class="chat-time">16:44</span>
-            </div>
-            <div class="chat-preview">[语音通话]</div>
-        </div>
-    </div>
-</div>
-
-<div class="bottom-nav">
-    <div class="nav-item active">
-        <span class="nav-icon">●</span>
-        <span>聊天</span>
-    </div>
-    <div class="nav-item">
-        <span class="nav-icon">♙</span>
-        <span>通讯录</span>
-    </div>
-    <div class="nav-item">
-        <span class="nav-icon">◎</span>
-        <span>发现</span>
-    </div>
-    <div class="nav-item">
-        <span class="nav-icon">♧</span>
-        <span>我</span>
-    </div>
-</div>
-
-<div class="home-indicator">
-    <div></div>
-</div>
-</div>
-<script>
-// 自动获取设备当前时间
-function updateTime() {
-    const now = new Date();
-    const hours = String(now.getHours()).padStart(2, "0");
-    const minutes = String(now.getMinutes()).padStart(2, "0");
-    document.getElementById("current-time").textContent =
-        hours + ":" + minutes;
-}
-updateTime();
-setInterval(updateTime, 1000);
-</script>
-</body>
-</html>
