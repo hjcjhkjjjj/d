@@ -3,267 +3,340 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>聊天界面</title>
-
+<title>WeChat</title>
 <style>
 * {
     box-sizing: border-box;
 }
-
 body {
     margin: 0;
-    background-color: #ededed;
+    background-color: #1c1c1c;
+    color: #eeeeee;
     font-family: Arial, sans-serif;
 }
-
-/* 聊天窗口 */
-.chat-container {
+/* 整体 */
+.wechat-container {
     max-width: 500px;
-    height: 100vh;
+    min-height: 100vh;
     margin: auto;
-    background-color: #ededed;
+    background-color: #1c1c1c;
     display: flex;
     flex-direction: column;
 }
-
-/* 顶部 */
-.chat-header {
+/* 顶部时间栏 */
+.status-bar {
+    height: 65px;
+    padding: 20px 25px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 17px;
+    font-weight: bold;
+    background-color: #111111;
+}
+.status-icons {
+    font-size: 17px;
+    letter-spacing: 2px;
+}
+/* 顶部标题 */
+.top-header {
     height: 55px;
-    background-color: #f7f7f7;
-    border-bottom: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 22px;
+    background-color: #111111;
+}
+.top-header span {
+    font-size: 27px;
+    cursor: pointer;
+}
+.top-header h1 {
+    font-size: 20px;
+    margin: 0;
+    font-weight: bold;
+}
+/* 搜索框 */
+.search-area {
+    padding: 10px 15px 15px;
+    background-color: #111111;
+}
+.search-box {
+    height: 50px;
+    background-color: #252525;
+    border-radius: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 18px;
-    font-weight: bold;
-    position: relative;
+    color: #777;
+    font-size: 17px;
+    gap: 10px;
 }
-
-/* 箭头 */
-.black-button {
-    position: absolute;
-    left: 15px;
-    top: 5px;
-    height: 45px;
+.search-box input {
+    width: 150px;
     border: none;
-    background-color: none;
-    font-size: 32px;
-    cursor: pointer;
-    color: #222;
+    outline: none;
+    background: transparent;
+    color: white;
+    font-size: 16px;
 }
-
-/* 聊天内容区域 */
-.chat-box {
+/* 聊天列表 */
+.chat-list {
     flex: 1;
-    padding: 15px;
     overflow-y: auto;
 }
-
-/* 消息 */
-.message {
+/* 每个聊天 */
+.chat-item {
+    height: 140px;
+    padding: 20px 18px;
     display: flex;
-    margin-bottom: 20px;
     align-items: flex-start;
+    cursor: pointer;
+    position: relative;
 }
-
-/* 自己的消息 */
-.message.self {
-    justify-content: flex-end;
+.chat-item:active {
+    background-color: #303030;
 }
-
 /* 头像 */
-.avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 5px;
+.chat-avatar {
+    width: 70px;
+    height: 70px;
+    border-radius: 10px;
     object-fit: cover;
+    flex-shrink: 0;
+    background-color: #444;
 }
-
-/* 聊天气泡 */
-.bubble {
-    max-width: 70%;
-    padding: 10px 13px;
-    border-radius: 5px;
-    font-size: 15px;
-    line-height: 1.5;
-    margin: 0 10px;
-    word-break: break-word;
+/* 文字区域 */
+.chat-content {
+    flex: 1;
+    min-width: 0;
+    margin-left: 15px;
+    padding-top: 3px;
 }
-
-/* 对方 */
-.message.other .bubble {
-    background-color: white;
-}
-
-/* 自己 */
-.message.self .bubble {
-    background-color: #95ec69;
-}
-
-/* 底部输入区域 */
-.chat-input {
-    min-height: 65px;
-    padding: 10px;
-    background-color: #f7f7f7;
-    border-top: 1px solid #ddd;
+.chat-top {
     display: flex;
-    gap: 10px;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+}
+.chat-name {
+    font-size: 19px;
+    font-weight: bold;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.chat-time {
+    font-size: 13px;
+    color: #555;
+    white-space: nowrap;
+}
+.chat-preview {
+    margin-top: 12px;
+    color: #777;
+    font-size: 15px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+/* 分割线 */
+.chat-item::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 103px;
+    right: 0;
+    height: 1px;
+    background-color: #303030;
+}
+/* 底部导航 */
+.bottom-nav {
+    height: 85px;
+    background-color: #222222;
+    border-top: 1px solid #333;
+    display: flex;
+    justify-content: space-around;
     align-items: center;
 }
-
-.chat-input input {
+.nav-item {
     flex: 1;
-    height: 40px;
-    border: none;
-    border-radius: 5px;
-    padding: 10px;
-    font-size: 15px;
-    outline: none;
-}
-
-.chat-input button {
-    height: 40px;
-    padding: 0 18px;
-    border: none;
-    border-radius: 5px;
-    background-color: #95ec69;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    color: #aaaaaa;
+    font-size: 13px;
     cursor: pointer;
-    font-size: 14px;
-
+}
+.nav-icon {
+    font-size: 25px;
+}
+.nav-item.active {
+    color: #07c160;
+}
+/* 底部手机横条 */
+.home-indicator {
+    height: 22px;
+    background-color: #222222;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.home-indicator div {
+    width: 135px;
+    height: 5px;
+    border-radius: 10px;
+    background-color: white;
 }
 </style>
 </head>
-
 <body>
-
-<div class="chat-container">
-
-    <!-- 顶部名字 -->
-    <div class="chat-header">
-            <button class="black-button" onclick="history.back()"> < </button>
-       <span>LIN</span>
-    </div>
-
-
-    <!-- 聊天记录 -->
-    <div class="chat-box" id="chat-box">
-
-        <!-- 对方的消息 -->
-        <div class="message other">
-            <img class="avatar"
-            src="https://i.imgs.ovh/2026/11/18/29aa38fade2cb9db84d989885203fb4b.jpg" style="margin-right: 12px;">
-            <div>
-                <img src="https://i.imgs.ovh/2026/11/18/2dfec627fbe3bce5067fa1004f837d5a.webp" style="width: 200px; height: auto; border-radius: 5px;">
-            </div>
-        </div>
-        
-        <div class="message other">
-            <img class="avatar"
-            src="https://i.imgs.ovh/2026/11/18/29aa38fade2cb9db84d989885203fb4b.jpg">
-            <div class="bubble">
-                哎 兄弟你觉得这个水晶怎么样
-            </div>
-        </div>
-
-        <!-- 自己的消息 -->
-        <div class="message self">
-            <div class="bubble">
-                好好看 
-            </div>
-            <img class="avatar"
-            src="https://i.imgs.ovh/2026/11/18/08bbf4715b23fefb8e12b42ec780a13e.jpg">
-        </div>
-
-    </div>
-
-    <!-- 输入框 -->
-    <div class="chat-input">
-        <input id="message-input"
-        type="text"
-        placeholder="发送消息...">
-            <button onclick="nextStep()">发送</button>
-    </div>
-
-   <!-- 下一页按钮 -->
-<div id="next-page" style="display: none; text-align: center; padding: 15px;">
-    <button onclick="location.href='page2.html'"
-    style="
-    padding: 10px 30px;
-    background-color: #95ec69;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 15px;
-    ">
-    </button>
-
+<div class="wechat-container">
+<!-- 时间栏 -->
+<div class="status-bar">
+    <span id="current-time">00:00</span>
+    <span class="status-icons">▮▮▮  Wi-Fi  ▰</span>
 </div>
-
+<!-- 顶部标题 -->
+<div class="top-header">
+    <span>☆</span>
+    <h1>WeChat</h1>
+    <span>⊕</span>
+</div>
+<!-- 搜索框 -->
+<div class="search-area">
+    <div class="search-box">
+        <span>⌕</span>
+        <input type="text" placeholder="搜索">
+    </div>
+</div>
+<!-- 聊天列表 -->
+<div class="chat-list">
+    <!-- 聊天1 -->
+    <div class="chat-item" onclick="location.href='index.htmi'">
+        <img class="chat-avatar"
+        src="https://i.imgs.ovh/2026/11/18/29aa38fade2cb9db84d989885203fb4b.jpg">
+        <div class="chat-content">
+            <div class="chat-top">
+                <span class="chat-name">LIN</span>
+                <span class="chat-time">19:49</span>
+            </div>
+            <div class="chat-preview">不会真给我吧</div>
+        </div>
+    </div>
+    <!-- 聊天2 -->
+    <div class="chat-item">
+        <div class="chat-avatar" style="display:flex;align-items:center;justify-content:center;font-size:30px;">
+            🐶
+        </div>
+        <div class="chat-content">
+            <div class="chat-top">
+                <span class="chat-name">妈妈</span>
+                <span class="chat-time">19:37</span>
+            </div>
+            <div class="chat-preview">儿子 钱给你转过去了</div>
+        </div>
+    </div>
+    <!-- 聊天3 -->
+    <div class="chat-item">
+        <div class="chat-avatar" style="display:flex;align-items:center;justify-content:center;font-size:30px;">
+            🌸
+        </div>
+        <div class="chat-content">
+            <div class="chat-top">
+                <span class="chat-name">宝宝2.3</span>
+                <span class="chat-time">19:34</span>
+            </div>
+            <div class="chat-preview">我现在很期待周三</div>
+        </div>
+    </div>
+    <!-- 聊天4 -->
+    <div class="chat-item">
+        <div class="chat-avatar" style="display:flex;align-items:center;justify-content:center;font-size:30px;">
+            🍎
+        </div>
+        <div class="chat-content">
+            <div class="chat-top">
+                <span class="chat-name">老板</span>
+                <span class="chat-time">星期二</span>
+            </div>
+            <div class="chat-preview">收到</div>
+        </div>
+    </div>
+    <!-- 聊天5 -->
+    <div class="chat-item">
+        <div class="chat-avatar" style="display:flex;align-items:center;justify-content:center;font-size:30px;background:#e83e35;">
+            🈲
+        </div>
+        <div class="chat-content">
+            <div class="chat-top">
+                <span class="chat-name">爱抠客</span>
+                <span class="chat-time">7月25日</span>
+            </div>
+            <div class="chat-preview">订单支付成功通知</div>
+        </div>
+    </div>
+    <!-- 聊天6 -->
+    <div class="chat-item">
+        <div class="chat-avatar" style="display:flex;align-items:center;justify-content:center;font-size:30px;background:#07c160;">
+            💬
+        </div>
+        <div class="chat-content">
+            <div class="chat-top">
+                <span class="chat-name">WeRun</span>
+            </div>
+            <div class="chat-preview"></div>
+        </div>
+    </div>
+    <!-- 聊天7 -->
+    <div class="chat-item">
+        <div class="chat-avatar" style="display:flex;align-items:center;justify-content:center;font-size:30px;">
+            👨
+        </div>
+        <div class="chat-content">
+            <div class="chat-top">
+                <span class="chat-name">爸爸</span>
+                <span class="chat-time">16:44</span>
+            </div>
+            <div class="chat-preview">[语音通话]</div>
+        </div>
+    </div>
+</div>
+<!-- 底部导航 -->
+<div class="bottom-nav">
+    <div class="nav-item active">
+        <span class="nav-icon">●</span>
+        <span>聊天</span>
+    </div>
+    <div class="nav-item">
+        <span class="nav-icon">♙</span>
+        <span>通讯录</span>
+    </div>
+    <div class="nav-item">
+        <span class="nav-icon">◎</span>
+        <span>发现</span>
+    </div>
+    <div class="nav-item">
+        <span class="nav-icon">♧</span>
+        <span>我</span>
+    </div>
+</div>
+<!-- 手机底部横条 -->
+<div class="home-indicator">
+    <div></div>
+</div>
+</div>
 <script>
-
-const myAvatarUrl = "https://i.imgs.ovh/2026/11/18/08bbf4715b23fefb8e12b42ec780a13e.jpg"; 
-const otherAvatarUrl = "https://i.imgs.ovh/2026/11/18/29aa38fade2cb9db84d989885203fb4b.jpg";
-
- const script = [
-        { sender: "other", text: "哈哈 那必须的" },
-        { sender: "other", text: "你想要吗" },
-        { sender: "self", text: "你能给我我就想要" },
-        { sender: "other", text: "彳亍 你等着吧" },
-        { sender: "self", text: "不会真给我吧" }
-    ];
-
-    
-    let step = 0;
-
-    function nextStep() {
-        
-        if (step >= script.length) {
-            document.getElementById("next-page").style.display = "block";
-            return;
-        }
-
-        const chatBox = document.getElementById("chat-box");
-        const current = script[step]; 
-
-        
-        const newMessage = document.createElement("div");
-        
-        
-        const bubble = document.createElement("div");
-        bubble.className = "bubble";
-        bubble.textContent = current.text;
-
-        
-        const avatar = document.createElement("img");
-        avatar.className = "avatar";
-
-        
-        if (current.sender === "self") {
-            newMessage.className = "message self";
-            avatar.src = myAvatarUrl;
-           
-            newMessage.appendChild(bubble);
-            newMessage.appendChild(avatar);
-        } else {
-            newMessage.className = "message other";
-            avatar.src = otherAvatarUrl;
-           
-            newMessage.appendChild(avatar);
-            newMessage.appendChild(bubble);
-        }
-
-        
-        chatBox.appendChild(newMessage);
-        
-      
-        step++;
-        if(step >= script.length) {
-        document.getElementById("next-page").style.display = "block";
-        }
-
-
-        chatBox.scrollTop = chatBox.scrollHeight;
-    }
+// 自动获取设备当前时间
+function updateTime() {
+    const now = new Date();
+    const hours = String(now.getHours()).padStart(2, "0");
+    const minutes = String(now.getMinutes()).padStart(2, "0");
+    document.getElementById("current-time").textContent =
+        hours + ":" + minutes;
+}
+updateTime();
+setInterval(updateTime, 1000);
 </script>
 </body>
 </html>
